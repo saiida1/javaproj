@@ -1,13 +1,22 @@
 package hhtay;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+	private int width;
+	private int height;
+	
+	public App()
+	{
+	}
+	
+	public App (int w, int h)
+	{
+		width = w;
+		height = h;
+	}
+	
+	public int getArea()
+	{
+		return width * height;
+	}
 }
