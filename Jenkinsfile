@@ -1,22 +1,22 @@
 
 pipeline {
     
-    agent none
+	agent none
   
-    // pipeline must complete in 10 minutes
-    options {
-        timeout(time: 10, unit: 'MINUTES') 
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
+	// pipeline must complete in 10 minutes
+	options {
+		timeout(time: 10, unit: 'MINUTES') 
+		buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '5'))
     }
 
-    stages {
+	stages {
     	
 		stage ('build') {	          
-    	 	agent any
-    		steps {	    
-    		    sh 'mvn verify'
-    		}
-    		post {
+			agent any
+				steps {	    
+					sh 'mvn verify'
+			}
+			post {
 				always {
 					archiveArtifacts artifacts: 'target/*.jar', fingerprint: true 
 				}
@@ -35,6 +35,7 @@ pipeline {
 			}
 		}
 	}
+	
 }
 
 
