@@ -11,15 +11,11 @@ pipeline {
 
     stages {
     	
-		stage ('build') {
-    	          
+		stage ('build') {	          
     	 	agent any
-    	
-    		steps {
-    		    
+    		steps {	    
     		    sh 'mvn verify'
     		}
-    		
     		post {
 				always {
 					archiveArtifacts artifacts: 'target/*.jar', fingerprint: true 
@@ -28,21 +24,17 @@ pipeline {
 		}
 		
 		stage('analysis') {
-			
 			agent any
-
 			steps {
 				script {
 					SCANNER_HOME = tool 'sonarscanner';	
 				}
-				
 				withSonarQubeEnv('sonarserver') {
-					
 					sh "${SCANNER_HOME}/bin/sonar-scanner"
 				}	
 			}
 		}
-    }
+	}
 }
 
 
