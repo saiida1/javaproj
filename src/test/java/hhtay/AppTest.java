@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class AppTest 
 {
-    public AppTest( String testName )
+    public AppTest()
     {
     }
 
