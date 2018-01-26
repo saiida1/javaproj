@@ -1,14 +1,50 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+	<!-- maven model -->
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- GAV (group:artifact:version) is the identifier for artifacts -->
 	<groupId>hhtay</groupId>
 	<artifactId>javaproj</artifactId>
-	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
+
+	<!-- this will determine the 
+		 build lifecycle plugins
+	-->
+	<packaging>jar</packaging>
+
+	<!-- (lifecycle)
+		 clean - clean the project
+				(phases - running a phase will auto execute all phases before it)
+				pre-clean
+				clean
+				post-clean
+
+		 default - cannot be executed directly
+				(phases, the common ones here e.g. jar will bind
+				the following plugins to these common build phases)
+				...
+				compile
+				test
+					(plugin:goals)
+					surefire:test
+				package
+					(plugin:goals)
+					jar:jar
+				verify
+				install
+				deploy
+
+		 site - documentation and webpage generation
+		 		...
+	-->
+
+	<!-- project name and url -->
 	<name>javaproj</name>
 	<url>http://maven.apache.org</url>
 
+	<!-- project dependencies -->
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -23,18 +59,27 @@
 		</dependency>
 	</dependencies>
 
+	<!-- project properties -->
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<!-- plugins can enhance build phases
+		 but downloading plugins are not enough,
+		 you need to declare the goals that
+		 you want to use 
+		 1. goals are usually tied to a phase by default
+		 2. you can override this, see below
+	-->
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.0</version>
+				<!-- plugin configuration -->
 				<configuration>
 					<destFile>target/coverage-reports/jacoco-unit.exec</destFile>
 					<dataFile>target/coverage-reports/jacoco-unit.exec</dataFile>
@@ -48,6 +93,12 @@
 					</execution>
 					<execution>
 						<id>default-report</id>
+						<!-- you can attach this goal (from the plugin)
+							 to the 'process-test-resouces' phase instead 
+							 of it's default 'verify' phase
+
+						<phase>process-test-resources</phase> 
+						-->
 						<goals>
 							<goal>report</goal>
 						</goals>
