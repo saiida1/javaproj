@@ -22,18 +22,19 @@ pipeline {
 				}
 			}
 		}
-		 stage('SonarQube analysis') {
-    // requires SonarQube Scanner 2.8+
-    def scannerHome = tool 'sonarScanner';
-    withSonarQubeEnv('MySonarQubeServer') {
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
+		
+		stage('analysis') {
+			agent any
+			steps {
+				script {
+					SCANNER_HOME = tool 'sonarScanner';	
+				}
+				withSonarQubeEnv('MySonarServer') {
+					sh "${SCANNER_HOME}/bin/sonar-scanner"
+				}	
+			}
+		}
 	}
 	
 }
-
-
-
-
 
