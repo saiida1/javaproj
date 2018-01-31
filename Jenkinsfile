@@ -22,18 +22,13 @@ pipeline {
 				}
 			}
 		}
-		
-		stage('analysis') {
-			agent any
-			steps {
-				script {
-					SCANNER_HOME = tool 'sonarscanner';	
-				}
-				withSonarQubeEnv('sonarserver') {
-					sh "/etc/sonar-runner-2.4/bin/sonar-scanner"
-				}	
-			}
-		}
+		 stage('SonarQube analysis') {
+    // requires SonarQube Scanner 2.8+
+    def scannerHome = tool 'SonarQube Scanner 2.8';
+    withSonarQubeEnv('My SonarQube Server') {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+  }
 	}
 	
 }
