@@ -30,7 +30,7 @@ pipeline {
 					SCANNER_HOME = tool 'sonarscanner';	
 				}
 				withSonarQubeEnv('sonarserver') {
-					sh "${SCANNER_HOME}/bin/sonar-scanner"
+					sh "/etc/sonar-runner-2.4/bin/sonar-scanner"
 				}	
 			}
 		}
