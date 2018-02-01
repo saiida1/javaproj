@@ -39,12 +39,7 @@ pipeline {
     }
     stage('Static Analysis') {
       	steps {
-				script {
-					SCANNER_HOME = tool 'sonarScanner';	
-				}
-				withSonarQubeEnv('MySonarServer') {
-					sh "${SCANNER_HOME}/bin/sonar-scanner"
-				}	
+				 sh "sonar-scanner -e -Dsonar.host.url=http://localhost:9000 -Dsonar.projectName='javaproj' -Dsonar.projectVersion='0.1' -Dsonar.login='admin' -Dsonar.password='admin' -Dsonar.sources='./src/main' -Dsonar.java.source='1.8' -Dsonar.java.binaries='target/classes/*' -Dsonar.jacoco.reportPath='./target/test-results/coverage/jacoco/jacoco.exec' -Dsonar.java.coveragePlugin='jacoco' -Dsonar.coverage.exclusions='*/test/**/*'"
 			}
     }
     stage('Deploy') {
