@@ -15,7 +15,7 @@ pipeline {
     stage('Static Analysis') {
       	steps {
 				script {
-					SCANNER_HOME = tool 'sonarScanner';	
+				def	SCANNER_HOME = tool 'sonarScanner';	
 				}
 				withSonarQubeEnv('MySonarServer') {
 					sh "${SCANNER_HOME}/bin/sonar-scanner"
